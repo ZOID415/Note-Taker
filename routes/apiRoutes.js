@@ -40,7 +40,21 @@ fs.writeFile('db/db.json', JSON.stringify(parseNotes), (err) => {
 
 res.json(parseNotes)
 })
+app.delete('api/notes/:id'), (req, res) => {
+    console.info(`${req.method} request recieved to delete a review`);
+    const noteId = req.params.id;
+    db = db.filter(({ id }) => !== noteId);
+    const noteString = JSON.stringify(db);
+    fs.writeFile(`.db/db.json`, noteString, (err) =>
+    err
+    ? console.error(err)
+    : console.log(
+        `review with ID of ${noteId} has been deleted from JSON file`
+    ))
+    res.json(db);
+}
 })
+
 
 
 
